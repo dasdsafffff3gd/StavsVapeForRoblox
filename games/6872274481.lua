@@ -8597,7 +8597,7 @@ run(function()
 		Function = function(val) BypassNumbers.Slowdown = val / 100 
 		end
 	})
-	ShowRoot = AnticheatBypass:CreateToggle({
+	ShowRoot = AnticheatAbuse:CreateToggle({
 	Name = 'ShowRoot',
 	Function = function(callback)
 		if callback then
