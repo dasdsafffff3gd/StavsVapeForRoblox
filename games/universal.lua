@@ -6056,13 +6056,13 @@ run(function()
 				repeat
 					local physicsrate, senderrate = '0', Type.Value == 'All' and '-1' or '60'
 					if AutoSend.Enabled and tick() % (AutoSendLength.Value + 0.1) > AutoSendLength.Value then
-						physicsrate, senderrate = '1', '1'  -- Fix this line
+						physicsrate, senderrate = '1', '1'
 					end
 	
 					if physicsrate ~= oldphys or senderrate ~= oldsend then
 						setfflag('S2PhysicsSenderRate', physicsrate)
 						setfflag('DataSenderRate', senderrate)
-						oldphys, oldsend = physicsrate, senderrate  -- Fix this line
+						oldphys, oldsend = physicsrate, senderrate
 					end
 					
 					task.wait(0.03)
@@ -6080,7 +6080,7 @@ run(function()
 	Type = Blink:CreateDropdown({
 		Name = 'Type',
 		List = {'Movement Only', 'All'},
-		Tooltip = 'Movement Only - Only chokes movement packets\nAll - Chokes remotes & movement'
+		Tooltip = 'Movement Only - Only chokes movement packets (currently does not work)\nAll - Chokes remotes & movement'
 	})
 	AutoSend = Blink:CreateToggle({
 		Name = 'Auto send',
@@ -6092,7 +6092,7 @@ run(function()
 	AutoSendLength = Blink:CreateSlider({
 		Name = 'Send threshold',
 		Min = 0,
-		Max = 1,
+		Max = 3,
 		Decimal = 100,
 		Darker = true,
 		Visible = false,
