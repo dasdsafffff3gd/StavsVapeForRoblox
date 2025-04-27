@@ -8539,6 +8539,7 @@ run(function()
 		end
 	})
 	Lerp = AnticheatBypass:CreateSlider({
+		Name = 'Lerp',
 		Min = 0,
 		Max = 100,
 		Default = BypassNumbers.Lerp * 100,
@@ -8546,6 +8547,7 @@ run(function()
 		Function = function(val) BypassNumbers.Lerp = val / 100 end
 	})
 	Frequency = AnticheatBypass:CreateSlider({
+		Name = 'Frequency',
 		Min = 0,
 		Max = 100,
 		Default = BypassNumbers.Frequency * 100,
@@ -8553,30 +8555,35 @@ run(function()
 		Function = function(val) BypassNumbers.Frequency = val / 100 end
 	})
 	Lowest Distance = AnticheatBypass:CreateSlider({
+		Name = 'Lowest Distance',
 		Min = 0.05,
 		Max = 23,
 		Default = BypassNumbers.TPLowest,
-		Function = function(val) BypassNumbers.TPLowest = val end
+		Function = function(vatl) BypassNumbers.TPLowest = val end
 	})
 	Precision = AnticheatBypass:CreateSlider({
+		Name = 'Precision',
 		Min = 0.05,
 		Max = 23,
 		Default = BypassNumbers.TPPrecise,
 		Function = function(val) BypassNumbers.TPPrecise = val end
 	})
 	Recheck = AnticheatBypass:CreateSlider({
+		Name = 'Recheck',
 		Min = 0,
 		Max = 23,
 		Default = BypassNumbers.TPRecheck,
 		Function = function(val) BypassNumbers.TPRecheck = val end
 	})
 	Slowdown Distance = AnticheatBypass:CreateSlider({
+		Name = 'Slowdown Distance',
 		Min = 300,
 		Max = 600,
 		Default = BypassNumbers.SlowdownDistance,
 		Function = function(val) BypassNumbers.SlowdownDistance = val end
 	})
 	Slowdown = AnticheatBypass:CreateSlider({
+		Name = 'Slowdown',
 		Min = 0,
 		Max = 200,
 		Default = BypassNumbers.Slowdown * 100,
@@ -8584,6 +8591,7 @@ run(function()
 		Function = function(val) BypassNumbers.Slowdown = val / 100 end
 	})
 	Show Root = AnticheatBypassShowRoot = AnticheatBypass:CreateToggle({
+	Name = 'Show Root',
 	Function = function(callback)
 		if callback then
 			if vapeOriginalRoot then
