@@ -6056,13 +6056,13 @@ run(function()
 				repeat
 					local physicsrate, senderrate = '0', Type.Value == 'All' and '-1' or '60'
 					if AutoSend.Enabled and tick() % (AutoSendLength.Value + 0.1) > AutoSendLength.Value then
-						physicsrate, senderrate = '1, '1'
-end
+						physicsrate, senderrate = '1', '1'  -- Fix this line
+					end
 	
 					if physicsrate ~= oldphys or senderrate ~= oldsend then
 						setfflag('S2PhysicsSenderRate', physicsrate)
 						setfflag('DataSenderRate', senderrate)
-						oldphys, oldsend = physic	srate, oldsend
+						oldphys, oldsend = physicsrate, senderrate  -- Fix this line
 					end
 					
 					task.wait(0.03)
