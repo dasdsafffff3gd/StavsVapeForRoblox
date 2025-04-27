@@ -8222,9 +8222,10 @@ run(function()
 		List = WinEffectName
 	})
 end)
-							
-run(function()
+
+run(function()			
 	local pausedvelo = false
+			
 	AnticheatBypass = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
 		Name = 'AnticheatAbuse',
 		Tooltip = 'gives the anticheat ptsd so you don\'t get lagbacked',
