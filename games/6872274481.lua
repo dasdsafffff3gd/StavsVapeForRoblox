@@ -8222,7 +8222,8 @@ run(function()
 		List = WinEffectName
 	})
 end)
-
+							
+run(function()
 	local pausedvelo = false
 	AnticheatBypass = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
 		Name = 'AnticheatAbuse',
