@@ -8589,25 +8589,24 @@ end)
 		Function = function(val) BypassNumbers.Slowdown = val / 100 end
 	})
 	AnticheatBypassShowRoot = AnticheatBypass.CreateToggle({
-		Name = 'Show Root',
-		Function = function(callback)
-			if callback then
-				if vapeOriginalRoot then
-					vapeOriginalRoot.Transparency = 0.7
-					vapeOriginalRoot.Color = Color3.new(0.4, 1, 0.4)
-				end
-				if predictcloneroot then
-					predictcloneroot.Transparency = 0.7
-				end
-			else
-				if vapeOriginalRoot then
-					vapeOriginalRoot.Transparency = 1
-				end
-				if predictcloneroot then
-					predictcloneroot.Transparency = 1
-				end
+	Name = 'Show Root',
+	Function = function(callback)
+		if callback then
+			if vapeOriginalRoot then
+				vapeOriginalRoot.Transparency = 0.7
+				vapeOriginalRoot.Color = Color3.new(0.4, 1, 0.4)
 			end
-		end,
-		Default = true
-	end
-}
+			if predictcloneroot then
+				predictcloneroot.Transparency = 0.7
+			end
+		else
+			if vapeOriginalRoot then
+				vapeOriginalRoot.Transparency = 1
+			end
+			if predictcloneroot then
+				predictcloneroot.Transparency = 1
+			end
+		end
+	end,
+	Default = true
+})
