@@ -6054,7 +6054,7 @@ run(function()
 				end))
 	
 				repeat
-					local physicsrate, senderrate = '0', Type.Value == 'All' and '-1' or '60'
+					local physicsrate, senderrate = '0', Type.Value == 'All' and '-1' or '1'
 					if AutoSend.Enabled and tick() % (AutoSendLength.Value + 0.1) > AutoSendLength.Value then
 						physicsrate, senderrate = '1, '1'
 					end
