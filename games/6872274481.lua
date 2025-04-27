@@ -8561,7 +8561,7 @@ run(function()
 		Min = 0.05,
 		Max = 23,
 		Default = BypassNumbers.TPLowest,
-		Function = function(vatl) BypassNumbers.TPLowest = val
+		Function = function(val) BypassNumbers.TPLowest = val
 		end
 	})
 	Precision = AnticheatAbuse:CreateSlider({
