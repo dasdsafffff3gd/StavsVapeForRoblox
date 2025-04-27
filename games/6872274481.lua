@@ -8554,7 +8554,7 @@ run(function()
 		Double = 100,
 		Function = function(val) BypassNumbers.Frequency = val / 100 end
 	})
-	Lowest Distance = AnticheatBypass:CreateSlider({
+	LowestDistance = AnticheatBypass:CreateSlider({
 		Name = 'LowestDistance',
 		Min = 0.05,
 		Max = 23,
@@ -8575,7 +8575,7 @@ run(function()
 		Default = BypassNumbers.TPRecheck,
 		Function = function(val) BypassNumbers.TPRecheck = val end
 	})
-	Slowdown Distance = AnticheatBypass:CreateSlider({
+	SlowdownDistance = AnticheatBypass:CreateSlider({
 		Name = 'SlowdownDistance',
 		Min = 300,
 		Max = 600,
