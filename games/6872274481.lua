@@ -8226,7 +8226,7 @@ end)
 run(function()			
 	local pausedvelo = false
 			
-	AnticheatBypass = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
+	AnticheatAbuse = vape.Categories.Utility:CreateModule({
 		Name = 'AnticheatAbuse',
 		Tooltip = 'gives the anticheat ptsd so you don\'t get lagbacked',
 		Function = function(callback)
