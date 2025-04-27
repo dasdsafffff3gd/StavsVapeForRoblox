@@ -8227,7 +8227,7 @@ run(function()
 	local pausedvelo = false
 	AnticheatBypass = GuiLibrary.ObjectsThatCanBeSaved.UtilityWindow.Api.CreateOptionsButton({
 		Name = 'AnticheatAbuse',
-		HoverText = 'gives the anticheat ptsd so you don\'t get lagbacked',
+		Tooltip = 'gives the anticheat ptsd so you don\'t get lagbacked',
 		Function = function(callback)
 			if callback then
 				task.spawn(function()
