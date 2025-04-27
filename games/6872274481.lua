@@ -8594,7 +8594,8 @@ run(function()
 		Max = 200,
 		Default = BypassNumbers.Slowdown * 100,
 		Double = 100,
-		Function = function(val) BypassNumbers.Slowdown = val / 100 end
+		Function = function(val) BypassNumbers.Slowdown = val / 100 
+		end
 	})
 	ShowRoot = AnticheatBypass:CreateToggle({
 	Name = 'ShowRoot',
