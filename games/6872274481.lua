@@ -8233,8 +8233,8 @@ run(function()
 			if callback then
 				task.spawn(function()
 					if bedwarsStore.matchState == 0 then
-						repeat task.wait() until bedwarsStore.matchState ~= 0 or not AnticheatBypass.Enabled
-						if not AnticheatBypass.Enabled then
+						repeat task.wait() until bedwarsStore.matchState ~= 0 or not TouchAnticheat.Enabled
+						if not TouchAnticheat.Enabled then
 							return
 						end
 					end
@@ -8243,7 +8243,7 @@ run(function()
 					end
 					if not disabledproper then 
 						warningNotification('AnticheatAbuse', 'Wait until AnticheatBypass finishes', 3)
-						AnticheatBypass.ToggleButton(false)
+						TouchAnticheat.ToggleButton(false)
 						return
 					end
 					clonesuccess = false
@@ -8252,13 +8252,13 @@ run(function()
 						task.delay(0.03, function()
 							repeat
 								if clonesuccess then break end
-								if AnticheatBypass.Enabled then
-									AnticheatBypass.ToggleButton(false)
+								if TouchAnticheat.Enabled then
+									TouchAnticheat.ToggleButton(false)
 								end
 								repeat task.wait(0.03) until entityLibrary.isAlive and entityLibrary.character.Humanoid.Health > 0 and isnetworkowner(entityLibrary.character.HumanoidRootPart)
 								task.wait(attemptedBypass and attemptedBypass == lplr.Character and 0 or 0.7)
-								if not AnticheatBypass.Enabled then
-									AnticheatBypass.ToggleButton(false)
+								if not TouchAnticheat.Enabled then
+									TouchAnticheat.ToggleButton(false)
 								end
 							until clonesuccess
 							listenerCreated = false
@@ -8269,7 +8269,7 @@ run(function()
 						cloned = lplr.Character
 						vapeOriginalRoot = entityLibrary.character.HumanoidRootPart
 						if not lplr.Character.Parent then
-							AnticheatBypass.ToggleButton(false)
+							TouchAnticheat.ToggleButton(false)
 							return
 						end
 						lplr.Character.Parent = game
@@ -8284,7 +8284,7 @@ run(function()
 						predictcloneroot.CanQuery = false
 						predictcloneroot.CanTouch = false
 						predictcloneroot.Parent = gameCamera
-						if AnticheatBypassShowRoot.Enabled then
+						if TouchAnticheatShowRoot.Enabled then
 							predictcloneroot.Transparency = 0.7
 							vapeOriginalRoot.Transparency = 0.7
 							vapeOriginalRoot.Color = Color3.new(0.4, 1, 0.4)
@@ -8320,27 +8320,27 @@ run(function()
 					end
 					if not clonesuccess then 
 						warningNotification('AnticheatAbuse', 'Character missing', 3)
-						AnticheatBypass.ToggleButton(false)
+						TouchAnticheat.ToggleButton(false)
 						return
 					end
 					task.spawn(function()
 						table.clear(fpslist)
 						repeat
-							if not AnticheatBypass.Enabled then break end
+							if not TouchAnticheat.Enabled then break end
 							local fps = math.floor(1 / runService.Heartbeat:Wait())
 							if #fpslist >= 10 then 
 								table.remove(fpslist, 1)
 							end
 							table.insert(fpslist, fps)
 							task.wait(1)
-						until not AnticheatBypass.Enabled
+						until not TouchAnticheat.Enabled
 					end)
 					RunLoops:BindToHeartbeat('AnticheatAbuse', function()
 						local root = entityLibrary.isAlive and entityLibrary.character.HumanoidRootPart
 						predictcloneroot.Position = vapeOverridePosition or vapeOriginalRoot.Position
 						if isnetworkowner(vapeOriginalRoot) and root then
 							if GuiLibrary.ObjectsThatCanBeSaved.LongJumpOptionsButton.Enabled then
-								if not cananticheatbypass then
+								if not cantouchanticheat then
 									if bodyvelo then
 										bodyvelo:Destroy()
 										bodyvelo = nil
@@ -8376,7 +8376,7 @@ run(function()
 								end
 								oldseat = sit	
 							end
-							if not cananticheatbypass then
+							if not cantouchanticheat then
 								if bodyvelo then
 									bodyvelo:Destroy()
 									bodyvelo = nil
@@ -8429,7 +8429,7 @@ run(function()
 							if entityLibrary.isAlive then
 								if isnetworkowner(vapeOriginalRoot) then
 									if not entityLibrary.character.Humanoid.Sit then
-										if not cananticheatbypass then
+										if not cantouchanticheat then
 											continue
 										end
 										if NoFlag then
@@ -8514,7 +8514,7 @@ run(function()
 									teleportDistance = 0
 								end
 							end
-						until not AnticheatBypass.Enabled
+						until not TouchAnticheat.Enabled
 					end)
 				end)
 			else
@@ -8538,7 +8538,7 @@ run(function()
 			end
 		end
 	})
-	Lerp = AnticheatAbuse:CreateSlider({
+	Lerp = TouchAnticheat:CreateSlider({
 		Name = 'Lerp',
 		Min = 0,
 		Max = 100,
@@ -8547,7 +8547,7 @@ run(function()
 		Function = function(val) BypassNumbers.Lerp = val / 100 
 		end
 	})
-	Frequency = AnticheatAbuse:CreateSlider({
+	Frequency = TouchAnticheat:CreateSlider({
 		Name = 'Frequency',
 		Min = 0,
 		Max = 100,
@@ -8556,7 +8556,7 @@ run(function()
 		Function = function(val) BypassNumbers.Frequency = val / 100 
 		end
 	})
-	LowestDistance = AnticheatAbuse:CreateSlider({
+	LowestDistance = TouchAnticheat:CreateSlider({
 		Name = 'LowestDistance',
 		Min = 0.05,
 		Max = 23,
@@ -8564,7 +8564,7 @@ run(function()
 		Function = function(val) BypassNumbers.TPLowest = val
 		end
 	})
-	Precision = AnticheatAbuse:CreateSlider({
+	Precision = TouchAnticheat:CreateSlider({
 		Name = 'Precision',
 		Min = 0.05,
 		Max = 23,
@@ -8572,7 +8572,7 @@ run(function()
 		Function = function(val) BypassNumbers.TPPrecise = val 
 		end
 	})
-	Recheck = AnticheatAbuse:CreateSlider({
+	Recheck = TouchAnticheat:CreateSlider({
 		Name = 'Recheck',
 		Min = 0,
 		Max = 23,
@@ -8580,7 +8580,7 @@ run(function()
 		Function = function(val) BypassNumbers.TPRecheck = val 
 		end
 	})
-	SlowdownDistance = AnticheatAbuse:CreateSlider({
+	SlowdownDistance = TouchAnticheat:CreateSlider({
 		Name = 'SlowdownDistance',
 		Min = 300,
 		Max = 600,
@@ -8588,7 +8588,7 @@ run(function()
 		Function = function(val) BypassNumbers.SlowdownDistance = val
 		end
 	})
-	Slowdown = AnticheatAbuse:CreateSlider({
+	Slowdown = TouchAnticheat:CreateSlider({
 		Name = 'Slowdown',
 		Min = 0,
 		Max = 200,
@@ -8597,7 +8597,7 @@ run(function()
 		Function = function(val) BypassNumbers.Slowdown = val / 100 
 		end
 	})
-	ShowRoot = AnticheatAbuse:CreateToggle({
+	ShowRoot = TouchAnticheat:CreateToggle({
 	Name = 'ShowRoot',
 	Function = function(callback)
 		if callback then
