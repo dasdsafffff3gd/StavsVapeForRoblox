@@ -8591,7 +8591,7 @@ run(function()
 		Function = function(val) BypassNumbers.Slowdown = val / 100 end
 	})
 	ShowRoot = AnticheatBypassShowRoot = AnticheatBypass:CreateToggle({
-	Name = 'ShowRoot',
+	Name = 'ShowRoot'
 	Function = function(callback)
 		if callback then
 			if vapeOriginalRoot then
