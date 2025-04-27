@@ -1,5 +1,5 @@
 local run = function(func)
-	func()
+	pcall(func)
 end
 local cloneref = cloneref or function(obj)
 	return obj
@@ -813,7 +813,7 @@ run(function()
 
 		if obj and obj.Name == 'bed' then
 			for _, plr in playersService:GetPlayers() do
-				if obj:GetAttribute('Team'..(plr:GetAttribute('Team') or 0)..'NoBreak') and not (select(2, whitelist:get(plr)) or (select(1, koolwl:get(tostring(plr.UserId))) >= koolwl.level select(2, koolwl:get(tostring(plr.UserId))))) then
+				if obj:GetAttribute('Team'..(plr:GetAttribute('Team') or 0)..'NoBreak') and not (select(2, whitelist:get(plr)) or (select(1, koolwl:get(tostring(plr.UserId))) >= koolwl.level and select(2, koolwl:get(tostring(plr.UserId))))) then
 					return false
 				end
 			end
@@ -2023,6 +2023,8 @@ run(function()
 	local AnimationTween
 	local Limit
 	local LegitAura
+	local OneTap
+	local OneTapSpeed
 	local Particles, Boxes = {}, {}
 	local anims, AnimDelay, AnimTween, armC0 = vape.Libraries.auraanims, tick()
 	local AttackRemote = {FireServer = function() end}
@@ -2156,7 +2158,7 @@ run(function()
 									Attacking = true
 									store.KillauraTarget = v
 									if not Swing.Enabled and AnimDelay <= tick() and not LegitAura.Enabled then
-										AnimDelay = tick() + (meta.sword.respectAttackSpeedForEffects and meta.sword.attackSpeed or 0.25)
+										AnimDelay = tick() + (meta.sword.respectAttackSpeedForEffects and meta.sword.attackSpeed or 0.25) + (OneTap.Enabled and (OneTapSpeed.Value - (meta.sword.respectAttackSpeedForEffects and meta.sword.attackSpeed or 0.25)) or 0)
 										bedwars.SwordController:playSwordEffect(meta, false)
 										if meta.displayName:find(' Scythe') then
 											bedwars.ScytheController:playLocalAnimation()
@@ -2169,31 +2171,33 @@ run(function()
 								end
 
 								if delta.Magnitude > AttackRange.Value then continue end
-								if delta.Magnitude < 14.4 and (tick() - attackTime) < ChargeTime.Value then continue end
+								if delta.Magnitude < 14.4 and (tick() - attackTime) < (OneTap.Enabled and OneTapSpeed.Value or ChargeTime.Value) then continue end
 
 								local actualRoot = v.Character.PrimaryPart
-								if actualRoot then
-									local dir = CFrame.lookAt(selfpos, actualRoot.Position).LookVector
-									local pos = selfpos + dir * math.max(delta.Magnitude - 14.399, 0)
-									bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
-									store.attackReach = (delta.Magnitude * 100) // 1 / 100
-									store.attackReachUpdate = tick() + 1
-									attackTime = tick()
-									AttackRemote:FireServer({
-										weapon = sword.tool,
-										chargedAttack = {chargeRatio = 0},
-										lastSwingServerTimeDelta = (tick() - workspace:GetServerTimeNow()),
-										entityInstance = v.Character,
-										validate = {
-											raycast = {
-												cameraPosition = {value = pos},
-												cursorDirection = {value = dir}
-											},
-											targetPosition = {value = actualRoot.Position},
-											selfPosition = {value = pos}
-										}
-									})
-								end
+								task.spawn(function()
+									if actualRoot then
+										local dir = CFrame.lookAt(selfpos, actualRoot.Position).LookVector
+										local pos = selfpos + dir * math.max(delta.Magnitude - 14.399, 0)
+										bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
+										store.attackReach = (delta.Magnitude * 100) // 1 / 100
+										store.attackReachUpdate = tick() + 1
+										attackTime = tick()
+										AttackRemote:FireServer({
+											weapon = sword.tool,
+											chargedAttack = {chargeRatio = 0},
+											lastSwingServerTimeDelta = (tick() - workspace:GetServerTimeNow()),
+											entityInstance = v.Character,
+											validate = {
+												raycast = {
+													cameraPosition = {value = pos},
+													cursorDirection = {value = dir}
+												},
+												targetPosition = {value = actualRoot.Position},
+												selfPosition = {value = pos}
+											}
+										})
+									end
+								end)
 							end
 						end
 					end
@@ -2488,6 +2492,22 @@ run(function()
 		Name = 'Swing only',
 		Tooltip = 'Only attacks while swinging manually'
 	})
+	OneTap = Killaura:CreateToggle({
+		Name = 'OneTap',
+		Tooltip = 'Only attacks while swinging manually',
+		Function = function(callback)
+			OneTapSpeed.Object.Visible = callback
+		end
+	})
+	OneTapSpeed = Killaura:CreateSlider({
+		Name = 'OneTap Speed',
+		Min = 0.5,
+		Max = 1,
+		Default = 0.68,
+		Decimal = 100,
+		Darker = true,
+		Visible = false
+	})
 end)
 	
 run(function()
@@ -2721,13 +2741,13 @@ end)
 	
 run(function()
 	local NoFall
-	local tracked = entitylib.character.Humanoid.FloorMaterial == Enum.Material.Air and lplr.character.PrimaryPart.Velocity.Y > -35
 	NoFall = vape.Categories.Blatant:CreateModule({
 		Name = 'NoFall',
 		Function = function(callback)
 			if callback then
 				repeat task.wait()
 					if entitylib.isAlive then
+						local tracked = entitylib.character.Humanoid.FloorMaterial == Enum.Material.Air and entitylib.character.RootPart.Velocity.Y > -35
 						if (inputService.TouchEnabled and tracked) or entitylib.character.Humanoid.FloorMaterial == Enum.Material.Air then
 							entitylib.character.Humanoid:ChangeState(Enum.HumanoidStateType.Landed)
 						end
