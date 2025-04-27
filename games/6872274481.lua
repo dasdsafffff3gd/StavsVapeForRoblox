@@ -8538,7 +8538,7 @@ run(function()
 			end
 		end
 	})
-	TouchAnticheat:CreateSlider({
+	Lerp = TouchAnticheat:CreateSlider({
 		Name = 'Lerp',
 		Min = 0,
 		Max = 100,
@@ -8547,7 +8547,7 @@ run(function()
 		Function = function(val) BypassNumbers.Lerp = val / 100 
 		end
 	})
-	TouchAnticheat:CreateSlider({
+	Frequency = AnticheatAbuse:CreateSlider({
 		Name = 'Frequency',
 		Min = 0,
 		Max = 100,
@@ -8556,15 +8556,15 @@ run(function()
 		Function = function(val) BypassNumbers.Frequency = val / 100 
 		end
 	})
-	TouchAnticheat:CreateSlider({
-		Name = 'LowestDistance',
+	LowestDistance = AnticheatAbuse:CreateSlider({
+		Name = 'Lowest Distance',
 		Min = 0.05,
 		Max = 23,
 		Default = BypassNumbers.TPLowest,
 		Function = function(val) BypassNumbers.TPLowest = val
 		end
 	})
-	TouchAnticheat:CreateSlider({
+	Precision = AnticheatAbuse:CreateSlider({
 		Name = 'Precision',
 		Min = 0.05,
 		Max = 23,
@@ -8572,7 +8572,7 @@ run(function()
 		Function = function(val) BypassNumbers.TPPrecise = val 
 		end
 	})
-	TouchAnticheat:CreateSlider({
+	Recheck = AnticheatAbuse:CreateSlider({
 		Name = 'Recheck',
 		Min = 0,
 		Max = 23,
@@ -8580,15 +8580,15 @@ run(function()
 		Function = function(val) BypassNumbers.TPRecheck = val 
 		end
 	})
-	TouchAnticheat:CreateSlider({
-		Name = 'SlowdownDistance',
+	SlowdownDistance = AnticheatAbuse:CreateSlider({
+		Name = 'Slowdown Distance',
 		Min = 300,
 		Max = 600,
 		Default = BypassNumbers.SlowdownDistance,
 		Function = function(val) BypassNumbers.SlowdownDistance = val
 		end
 	})
-	TouchAnticheat:CreateSlider({
+	Slowdown = AnticheatAbuse:CreateSlider({
 		Name = 'Slowdown',
 		Min = 0,
 		Max = 200,
@@ -8597,7 +8597,7 @@ run(function()
 		Function = function(val) BypassNumbers.Slowdown = val / 100 
 		end
 	})
-	TouchAnticheat:CreateToggle({
+	ShowRoot = TouchAnticheat:CreateToggle({
 	Name = 'ShowRoot',
 	Function = function(callback)
 		if callback then
